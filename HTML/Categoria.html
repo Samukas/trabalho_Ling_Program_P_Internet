@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Categoria</title>
+</head>
+
+<body>
+
+    <menutpi2>
+
+        <nav>
+            <a href="../index.html">Início</a>
+            <a href="../admin.html">Painel Administrativo</a>
+            <a href="usuario.html">Usuários</a>
+            <a href="livro.html">Livros</a>
+            <a href="autor.html">Autores</a>
+            <a href="emprestimo.html">Empréstimos</a>
+            <a href="categoria.html">Categorias</a>
+        </nav>
+
+    </menutpi2>
+
+    <h1>Cadastro de Categoria</h1>
+
+    <tpi2>
+
+        <form id="formCategoria">
+
+            <label for="nome">Nome da categoria:</label>
+            <input type="text" id="nome" name="nome">
+
+            <br><br>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao"></textarea>
+
+            <br><br>
+
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo" name="codigo">
+
+            <br><br>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+
+                <option value="">Selecione</option>
+                <option value="ativa">Ativa</option>
+                <option value="inativa">Inativa</option>
+
+            </select>
+
+            <br><br>
+
+            <label for="localizacao">Localização na biblioteca:</label>
+            <input type="text" id="localizacao" name="localizacao">
+
+            <br><br>
+
+            <button type="submit">Cadastrar Categoria</button>
+
+        </form>
+
+    </tpi2>
+
+    <br>
+
+    <a href="../admin.html">Voltar para o painel administrativo</a>
+
+    <script src="../js/categoria.js"></script>
+
+</body>
+
+</html>

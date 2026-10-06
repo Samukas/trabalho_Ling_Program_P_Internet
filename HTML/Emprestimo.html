@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Empréstimo</title>
+</head>
+
+<body>
+
+    <menutpi2>
+
+        <nav>
+            <a href="../index.html">Início</a>
+            <a href="../admin.html">Painel Administrativo</a>
+            <a href="usuario.html">Usuários</a>
+            <a href="livro.html">Livros</a>
+            <a href="autor.html">Autores</a>
+            <a href="emprestimo.html">Empréstimos</a>
+            <a href="categoria.html">Categorias</a>
+        </nav>
+
+    </menutpi2>
+
+    <h1>Registrar Empréstimo</h1>
+
+    <tpi2>
+
+        <form id="formEmprestimo">
+
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="usuario">
+
+            <br><br>
+
+            <label for="livro">Livro:</label>
+            <input type="text" id="livro" name="livro">
+
+            <br><br>
+
+            <label for="dataEmprestimo">Data do empréstimo:</label>
+            <input type="date" id="dataEmprestimo" name="dataEmprestimo">
+
+            <br><br>
+
+            <label for="dataDevolucao">Data prevista para devolução:</label>
+            <input type="date" id="dataDevolucao" name="dataDevolucao">
+
+            <br><br>
+
+            <label for="observacao">Observação:</label>
+            <textarea id="observacao" name="observacao"></textarea>
+
+            <br><br>
+
+            <button type="submit">Registrar Empréstimo</button>
+
+        </form>
+
+    </tpi2>
+
+    <br>
+
+    <a href="../admin.html">Voltar para o painel administrativo</a>
+
+    <script src="../js/emprestimo.js"></script>
+
+</body>
+
+</html>

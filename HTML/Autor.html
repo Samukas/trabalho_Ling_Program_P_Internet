@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Autor</title>
+</head>
+
+<body>
+
+    <menutpi2>
+
+        <nav>
+            <a href="../index.html">Início</a>
+            <a href="../admin.html">Painel Administrativo</a>
+            <a href="usuario.html">Usuários</a>
+            <a href="livro.html">Livros</a>
+            <a href="autor.html">Autores</a>
+            <a href="emprestimo.html">Empréstimos</a>
+            <a href="categoria.html">Categorias</a>
+        </nav>
+
+    </menutpi2>
+
+    <h1>Cadastro de Autor</h1>
+
+    <tpi2>
+
+        <form id="formAutor">
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+
+            <br><br>
+
+            <label for="nacionalidade">Nacionalidade:</label>
+            <input type="text" id="nacionalidade" name="nacionalidade">
+
+            <br><br>
+
+            <label for="dataNascimento">Data de nascimento:</label>
+            <input type="date" id="dataNascimento" name="dataNascimento">
+
+            <br><br>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email">
+
+            <br><br>
+
+            <label for="biografia">Biografia:</label>
+            <textarea id="biografia" name="biografia"></textarea>
+
+            <br><br>
+
+            <button type="submit">Cadastrar Autor</button>
+
+        </form>
+
+    </tpi2>
+
+    <br>
+
+    <a href="../admin.html">Voltar para o painel administrativo</a>
+
+    <script src="../js/autor.js"></script>
+
+</body>
+
+</html>
