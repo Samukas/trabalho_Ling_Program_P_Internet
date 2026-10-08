@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel administrativo da Biblioteca Virtual">
+    <title>Painel Administrativo | Biblioteca Virtual</title>
+</head>
+<body>
+
+    <menutpi2>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="admin.html">Painel Administrativo</a>
+            <a href="www/usuario.html">Usuários</a>
+            <a href="www/livro.html">Livros</a>
+            <a href="www/autor.html">Autores</a>
+            <a href="www/emprestimo.html">Empréstimos</a>
+            <a href="www/categoria.html">Categorias</a>
+        </nav>
+
+    </menutpi2>
+
+    <h1>Painel Administrativo</h1>
+
+    <tpi2 id="tpi2-login">
+
+        <h2>Acesso do administrador</h2>
+
+        <form id="formLoginAdmin">
+
+            <p>
+                <label for="loginAdmin">Nome/E-mail:</label>
+                <input type="text" id="loginAdmin" name="usuario" value="admin" autocomplete="username">
+            </p>
+
+            <p class="tpi2-dica">Administrador: admin — admin007@admin.com</p>
+
+            <p>
+                <label for="senhaAdmin">Senha:</label>
+                <input type="password" id="senhaAdmin" name="senha" autocomplete="current-password" placeholder="Senha do administrador">
+            </p>
+
+            <p class="tpi2-acoes">
+                <button type="submit" id="btnEntrarAdmin">Acessar Painel Administrador</button>
+                <button type="button" id="btnVoltarLogin">Voltar</button>
+            </p>
+
+        </form>
+
+    </tpi2>
+
+    <tpi2 id="tpi2-painel" hidden>
+
+        <p>As ações do painel são exibidas apenas para o administrador.</p>
+
+        <br>
+
+        <p>
+            <a href="www/usuario.html">Cadastrar usuário</a>
+        </p>
+
+        <p>
+            <a href="www/livro.html">Cadastrar livro</a>
+        </p>
+
+        <p>
+            <a href="www/autor.html">Cadastrar autor</a>
+        </p>
+
+        <p>
+            <a href="www/emprestimo.html">Registrar empréstimo</a>
+        </p>
+
+        <p>
+            <a href="www/categoria.html">Cadastrar categoria</a>
+        </p>
+
+        <p class="tpi2-acoes">
+            <button type="button" id="btnSairAdmin">Encerrar sessão</button>
+        </p>
+
+    </tpi2>
+
+    <script src="js/tpi2-ui.js" defer></script>
+    <script src="js/admin.js" defer></script>
+
+</body>
+
+</html>

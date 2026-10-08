@@ -1,0 +1,525 @@
+:root {
+    --vinho: #5A1827;
+    --vinho-escuro: #3F1019;
+    --areia: #F4F1EA;
+    --areia-claro: #FDFBF7;
+    --chumbo: #2C3539;
+    --chumbo-claro: #5C686E;
+    --dourado: #D4AF37;
+    --dourado-escuro: #A8862A;
+    --sombra: 0 6px 18px rgba(44, 53, 57, 0.18);
+    --raio: 10px;
+    --transicao: 0.25s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background-color: var(--areia);
+    color: var(--chumbo);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+menutpi2,
+tpi2 {
+    display: block;
+}
+
+a {
+    color: var(--vinho);
+    text-decoration: none;
+    transition: color var(--transicao);
+}
+
+a:hover {
+    color: var(--dourado-escuro);
+}
+
+menutpi2 {
+    background-color: var(--vinho);
+    padding: 0.9rem 1.5rem;
+    box-shadow: var(--sombra);
+    animation: descer 0.6s ease both;
+}
+
+menutpi2 nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    justify-content: center;
+}
+
+menutpi2 nav a {
+    color: var(--areia);
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.35rem 0.15rem;
+    position: relative;
+    letter-spacing: 0.03em;
+}
+
+menutpi2 nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--dourado);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+menutpi2 nav a:hover,
+menutpi2 nav a:focus-visible {
+    color: var(--dourado);
+}
+
+menutpi2 nav a:hover::after,
+menutpi2 nav a:focus-visible::after {
+    transform: scaleX(1);
+}
+
+h1 {
+    color: var(--vinho);
+    text-align: center;
+    font-size: 2rem;
+    margin: 1.8rem 1rem 1rem;
+    animation: surgir 0.7s ease both;
+    animation-delay: 0.15s;
+}
+
+tpi2 {
+    max-width: 720px;
+    margin: 1rem auto 2.5rem;
+    padding: 1.8rem 2rem;
+    background-color: var(--areia-claro);
+    border: 1px solid rgba(90, 24, 39, 0.15);
+    border-top: 4px solid var(--dourado);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    animation: surgir 0.7s ease both;
+    animation-delay: 0.3s;
+}
+
+tpi2 form,
+main form {
+    display: grid;
+    gap: 0.4rem;
+}
+
+tpi2 br {
+    display: none;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: var(--chumbo);
+    margin-bottom: 0.25rem;
+    font-size: 0.98rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1.5px solid var(--chumbo-claro);
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: var(--chumbo);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--vinho);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.45);
+}
+
+.tpi2-erro {
+    border-color: var(--vinho) !important;
+    box-shadow: 0 0 0 3px rgba(90, 24, 39, 0.25) !important;
+    animation: tremer 0.35s ease;
+}
+
+button {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.65rem 1.6rem;
+    margin-top: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--vinho);
+    color: var(--areia);
+    cursor: pointer;
+    transition: background-color var(--transicao), transform 0.15s ease, box-shadow var(--transicao);
+}
+
+button:hover {
+    background-color: var(--vinho-escuro);
+    box-shadow: 0 4px 12px rgba(90, 24, 39, 0.35);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+button[type="reset"] {
+    background-color: transparent;
+    color: var(--chumbo);
+    border: 1.5px solid var(--chumbo-claro);
+    margin-left: 0.6rem;
+}
+
+button[type="reset"]:hover {
+    background-color: var(--chumbo);
+    color: var(--areia);
+}
+
+.tpi2-toast {
+    position: fixed;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    padding: 0.8rem 1.4rem;
+    border-radius: 8px;
+    background-color: var(--chumbo);
+    color: var(--areia);
+    border-left: 5px solid var(--dourado);
+    box-shadow: var(--sombra);
+    font-family: inherit;
+    font-size: 0.95rem;
+    z-index: 999;
+    animation: toast-entrar 0.35s ease both;
+}
+
+.tpi2-toast.tpi2-toast-erro {
+    background-color: var(--vinho);
+    border-left-color: var(--dourado);
+}
+
+.tpi2-toast.saindo {
+    animation: toast-sair 0.3s ease both;
+}
+
+.tpi2-info {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--dourado-escuro);
+    border-left: 3px solid var(--dourado);
+    padding-left: 0.5rem;
+    transition: color var(--transicao);
+}
+
+.tpi2-info.tpi2-info-alerta {
+    color: var(--vinho);
+    border-left-color: var(--vinho);
+    animation: tremer 0.35s ease;
+}
+
+header {
+    background-color: var(--vinho);
+    color: var(--areia);
+    text-align: center;
+    padding: 1.4rem 1rem;
+    border-bottom: 4px solid var(--dourado);
+}
+
+header h1 {
+    color: var(--areia);
+    margin: 0;
+    font-size: 1.8rem;
+    animation: none;
+}
+
+header h2 {
+    color: var(--dourado);
+    font-weight: normal;
+    font-size: 1.1rem;
+}
+
+main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+main form {
+    margin-top: 1rem;
+}
+
+fieldset {
+    border: 1px solid rgba(44, 53, 57, 0.35);
+    border-radius: var(--raio);
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.2rem;
+    background-color: var(--areia-claro);
+    animation: surgir 0.6s ease both;
+}
+
+fieldset:nth-of-type(2) {
+    animation-delay: 0.12s;
+}
+
+fieldset:nth-of-type(3) {
+    animation-delay: 0.24s;
+}
+
+legend {
+    color: var(--vinho);
+    font-weight: bold;
+    padding: 0 0.5rem;
+}
+
+main p {
+    margin-bottom: 0.7rem;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--vinho);
+    width: 1.05rem;
+    height: 1.05rem;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 0.45rem;
+    border: 1.5px dashed var(--chumbo-claro);
+    border-radius: 6px;
+    background-color: var(--areia);
+    transition: border-color var(--transicao);
+}
+
+input[type="file"]:hover {
+    border-color: var(--dourado);
+}
+
+body > a[href$="admin.html"],
+body > a[href^="../"] {
+    display: inline-block;
+    margin: 0 auto 2rem;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    font-weight: bold;
+    border-bottom: 2px solid var(--dourado);
+    padding-bottom: 0.15rem;
+}
+
+@keyframes surgir {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes descer {
+    from {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes tremer {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-7px); }
+    40%      { transform: translateX(7px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(4px); }
+}
+
+@keyframes toast-entrar {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 16px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes toast-sair {
+    from {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, 16px);
+    }
+}
+
+@media (max-width: 600px) {
+    tpi2 {
+        padding: 1.2rem 1rem;
+        margin: 0.5rem 0.6rem 2rem;
+    }
+
+    menutpi2 nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+tpi2[hidden] {
+    display: none;
+}
+
+tpi2 h2 {
+    color: var(--vinho);
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 0.9rem;
+}
+
+.tpi2-dica {
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--chumbo-claro);
+}
+
+.tpi2-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.tpi2-acoes button {
+    margin-top: 0;
+}
+
+menutpi2 nav a.tpi2-link-voltar {
+    color: var(--dourado);
+}
+
+.tpi2-voltar-solto {
+    text-align: center;
+    margin: 1.4rem auto 2rem;
+}
+
+.tpi2-voltar-solto a {
+    font-weight: bold;
+    border-bottom: 2px solid var(--dourado);
+    padding-bottom: 0.15rem;
+}
+
+.tpi2-sessao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.tpi2-sessao span {
+    color: var(--dourado);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.tpi2-sessao button {
+    padding: 0.25rem 0.9rem;
+    margin-top: 0;
+    font-size: 0.85rem;
+    background-color: transparent;
+    border: 1.5px solid var(--dourado);
+    color: var(--areia);
+}
+
+.tpi2-sessao button:hover {
+    background-color: var(--dourado);
+    color: var(--vinho-escuro);
+    box-shadow: none;
+    transform: none;
+}
+
+.tpi2-aviso {
+    border: 1.5px solid var(--dourado);
+    border-left: 5px solid var(--dourado);
+    border-radius: var(--raio);
+    background-color: var(--areia);
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.2rem;
+    animation: surgir 0.6s ease both;
+}
+
+.tpi2-aviso p {
+    margin-bottom: 0.5rem;
+}
+
+.tpi2-aviso p:last-child {
+    margin-bottom: 0;
+}
+
+.tpi2-login-rapido {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.6rem;
+}
+
+.tpi2-login-rapido input {
+    flex: 1 1 150px;
+    width: auto;
+}
+
+.tpi2-login-rapido button {
+    margin-top: 0;
+    white-space: nowrap;
+}
