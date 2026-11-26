@@ -1,6 +1,26 @@
-# Regras de recurso caso a raiz do projeto seja servida por engano.
-# O DocumentRoot correto e a pasta src/ (veja README.md).
+# Este .htaccess esta vazio de proposito.
+#
+# Motivo: com AllowOverride restrito no Apache (padrao de varios XAMPP),
+# qualquer diretiva aqui gera erro 500 ("RewriteEngine not allowed here").
+# Como nao da para controlar a configuracao da maquina de quem vai testar,
+# o projeto nao depende de .htaccess:
+#   - o DocumentRoot certo e a pasta src/ (veja README.md);
+#   - o .env fica na raiz do projeto, fora do DocumentRoot;
+#   - no servidor embutido do PHP use o router.php da raiz (bloqueia o
+#     acesso a arquivos sensiveis, ja que o php -S ignora .htaccess).
+#
+# Se o seu Apache tiver "AllowOverride All" e o mod_rewrite ligados, voce
+# pode descomentar as regras abaixo para bloquear por aqui tambem caso a
+# raiz do projeto seja servida por engano.
 
+# RewriteEngine On
+# RewriteRule ^\.env - [F,L]
+# RewriteRule ^(legacy|docs|sql|src/php/\.env) - [F,L]
+# RewriteRule \.(sql|log|ini|md|png|docx)$ - [F,L]
+#
+# <FilesMatch "^\.env">
+#     Require all denied
+# </FilesMatch>
 RewriteEngine On
 
 RewriteRule ^\.env - [F,L]

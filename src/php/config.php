@@ -19,4 +19,9 @@ function carregarEnv($arquivo) {
     }
 }
 
+// O .env fica na raiz do projeto (fora do DocumentRoot src/), para nao ser
+// baixado pela web mesmo quando o .htaccess nao esta valendo (AllowOverride
+// restrito) ou no servidor embutido do PHP. O caminho antigo continua valendo
+// como fallback para quem ja tem o .env dentro de src/php/.
+carregarEnv(__DIR__ . '/../../.env');
 carregarEnv(__DIR__ . '/.env');

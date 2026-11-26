@@ -1,3 +1,14 @@
+# Versao legada (a versao em uso fica em src/). Vazio de proposito para nao
+# dar erro 500 com AllowOverride restrito. Com "AllowOverride All", descomente
+# abaixo para bloquear acesso direto a credenciais e ao script de teste.
+
+# <FilesMatch "^\.env">
+#     Require all denied
+# </FilesMatch>
+#
+# <Files "teste_conexao.php">
+#     Require all denied
+# </Files>
 # Versao plana legada (a versao implantada fica em src/).
 # Bloqueia acesso direto a credenciais e ao script de teste.
 

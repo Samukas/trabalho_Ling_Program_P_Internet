@@ -1,19 +1,27 @@
-<FilesMatch "^\.env">
-    Require all denied
-</FilesMatch>
+# Vazio de proposito (com AllowOverride restrito, diretivas aqui dao erro
+# 500). A protecao nao depende daqui: o .env fica na raiz do projeto, fora
+# do DocumentRoot, e estes arquivos nao vazam credenciais se acessados
+# direto (config.php nao imprime nada; conexao.php responde mensagem
+# generica).
+#
+# Com "AllowOverride All", descomente para dar 403 no acesso direto:
 
-<Files "config.php">
-    Require all denied
-</Files>
-
-<Files "conexao.php">
-    Require all denied
-</Files>
-
-<Files "auth.php">
-    Require all denied
-</Files>
-
-<Files "teste_conexao.php">
-    Require all denied
-</Files>
+# <FilesMatch "^\.env">
+#     Require all denied
+# </FilesMatch>
+#
+# <Files "config.php">
+#     Require all denied
+# </Files>
+#
+# <Files "conexao.php">
+#     Require all denied
+# </Files>
+#
+# <Files "auth.php">
+#     Require all denied
+# </Files>
+#
+# <Files "teste_conexao.php">
+#     Require all denied
+# </Files>

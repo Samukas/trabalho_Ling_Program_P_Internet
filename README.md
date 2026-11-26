@@ -40,6 +40,11 @@ de controle básico sem instalar sistema pesado.
 
 ## Estrutura
 
+```text
+ProvaN1/
+├── .env.example              modelo das credenciais (copie para .env nesta raiz)
+├── router.php                router do servidor embutido (php -S ... router.php)
+├── index.html                redireciona para src/ se a raiz for servida por engano
 ```
 ProvaN1/
 ├── src/                      aplicação (versão implantada)
@@ -56,14 +61,20 @@ ProvaN1/
 A versão plana original da prova (pastas `html/`, `php/`, `js/`, `css/`)
 está preservada em `legacy/`; relatórios, guias e evidências estão em
 `docs/` (com imagens e trabalhos em `docs/evidencias/`). Se a raiz for
+servida por engano, o `index.html` dela redireciona para `src/` (DocumentRoot
+correto). O `.env` fica na raiz do projeto, fora de `src/`.
 servida por engano, o `.htaccess` dela bloqueia `legacy/`, `docs/`, `sql/`
 e o `src/php/.env`.
 
 ## Segurança
 
-- Credenciais do banco e do admin **fora do código**: arquivo `.env` (ignorado
-  pelo git e bloqueado no Apache via `.htaccess`) carregado por `php/config.php`;
-  `.env.example` documenta as chaves e como gerar um hash novo.
+- Credenciais do banco e do admin **fora do código e fora do DocumentRoot**:
+  arquivo `.env` na raiz do projeto (fora de `src/`, ignorado pelo git),
+  carregado por `php/config.php` (com fallback para `src/php/.env`); o
+  `.env.example` na raiz documenta as chaves e como gerar um hash novo. No
+  `php -S` o `router.php` bloqueia o download desses arquivos; no Apache com
+  `AllowOverride All`, as regras comentadas nos `.htaccess` podem ser
+  descomentadas para 403 explícito.
 - O `login.php` **falha fechado**: sem `ADMIN_USER`/`ADMIN_PASS_HASH` no `.env`,
   nenhum login é aceito (não existe hash reserva no código).
 - Conexão PDO com `ERRMODE_EXCEPTION`, `EMULATE_PREPARES = false`, fetch
@@ -79,9 +90,10 @@ e o `src/php/.env`.
   exigem `$_SESSION['tipo'] === 'admin'` **e** token CSRF por POST
   (`php/csrf.php` entrega o token; `php/logout.php` destrói a sessão no
   servidor). `livro.php` e `usuario.php` são cadastros públicos.
-- Headers de segurança no `.htaccess` da raiz pública (`src/`): CSP,
-  `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` e
-  `Permissions-Policy`.
+- Headers de segurança enviados via PHP (`php/seguranca.php`) e via meta CSP
+  nos HTML: CSP, `X-Content-Type-Options`, `X-Frame-Options`,
+  `Referrer-Policy` e `Permissions-Policy` — funcionam em qualquer servidor,
+  sem depender de `mod_headers` ou de `.htaccess`.
 - Validação de CPF com dígitos verificadores, e limites de tamanho (`mb_strlen`)
   em todos os campos de texto.
 - Nada de senha no navegador: o cadastro de usuário não guarda senha em
@@ -95,17 +107,58 @@ listagem/edição — próximos passos naturais.
 
 ## Como rodar
 
-```bash
-# 1. Configure as credenciais locais (uma vez)
-cp src/php/.env.example src/php/.env   # edite DB_PASS e ADMIN_PASS_HASH
+O projeto **não depende de `.htaccess`**: os arquivos `.htaccess` estão só com
+comentários, portanto não ocorre erro 500 ("RewriteEngine not allowed here")
+em Apache com `AllowOverride` restrito (padrão de vários XAMPP). Todas as
+opções abaixo funcionam em Windows, Linux e macOS:
 
-# 2. Suba o PostgreSQL com o banco "Biblioteca" e rode o servidor
-php -S 127.0.0.1:8000 -t src
-# abra http://127.0.0.1:8000/index.html
+### Opção 1 — servidor embutido do PHP (mais simples, zero configuração)
+
+```bash
+# 1. Na raiz do projeto, crie o .env (uma vez por máquina):
+cp .env.example .env        # Windows: copy .env.example .env
+#    edite DB_PASS e ADMIN_PASS_HASH dentro do .env
+
+# 2. Suba o PostgreSQL com o banco "biblioteca" e rode o servidor:
+php -S 127.0.0.1:8000 -t src router.php
+# abra http://127.0.0.1:8000/
 ```
 
-No Apache da máquina da disciplina, a raiz do projeto é `src/`
-(ex.: `http://localhost/ProvaN1/src/`).
+O `router.php` bloqueia o acesso a `.env`, `config.php`, `conexao.php` e
+outros arquivos sensíveis (o `php -S` ignora `.htaccess`).
+
+### Opção 2 — XAMPP ou Apache puro (sem mexer em AllowOverride)
+
+O Apache desses pacotes serve os arquivos; o banco continua sendo o
+PostgreSQL que o phpPgAdmin administra (`biblioteca`, porta 5433). O MariaDB
+do XAMPP **não** é usado.
+
+1. Copie a pasta `ProvaN1` inteira para a raiz do Apache:
+   - Windows: `C:\xampp\htdocs\ProvaN1\`
+   - Linux: `/opt/lampp/htdocs/ProvaN1/`
+   - macOS: `/Applications/XAMPP/htdocs/ProvaN1/`
+2. Crie o `.env` na raiz do projeto a partir do `.env.example` e garanta que o
+   PostgreSQL esteja no ar (o mesmo serviço que o phpPgAdmin usa), com
+   `DB_HOST`, `DB_PORT=5433`, `DB_NAME=biblioteca`, `DB_USER`, `DB_PASS`.
+3. Importe o schema uma única vez (se o banco ainda não existir):
+   crie o banco `biblioteca` no phpPgAdmin e rode o conteúdo de `sql/schema.sql`.
+4. Inicie o Apache pelo painel e acesse:
+   `http://localhost/ProvaN1/src/index.html` (painel admin: `admin.html`).
+   Se acessar `http://localhost/ProvaN1/`, o `index.html` da raiz redireciona
+   para `src/`.
+
+**Não precisa habilitar `mod_rewrite` nem alterar `AllowOverride`**: o projeto
+não usa mais diretivas de `.htaccess`, então não dá erro 500 em nenhuma
+configuração de Apache. O DocumentRoot continua sendo `src/`; o `.env` fica
+na raiz do projeto, fora de `src/`, e não pode ser baixado pela web.
+
+### Opção 3 — Apache com AllowOverride All (camada extra opcional)
+
+Se quiser 403 explícito ao acessar `.env`, `config.php`, `conexao.php`,
+`auth.php` etc. pelo navegador: habilite `mod_rewrite` e `AllowOverride All`
+no `httpd.conf` para o diretório do projeto e **descomente** as regras nos
+`.htaccess` (raiz, `src/`, `src/php/`). Com AllowOverride restrito, deixe
+comentado — o projeto funciona do mesmo jeito.
 
 ### Rodar com XAMPP (mesmo banco PostgreSQL do phpPgAdmin)
 
